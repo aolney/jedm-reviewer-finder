@@ -20,15 +20,19 @@ type [<Pojo>] SearchResult =
 
 type Model = 
     {
+        /// The submission text used to find reviewers
         Query : string
+        /// Reviewer names we restrict the search to
+        Restriction: string
         Results : ResizeArray<SearchResult>
     }
 
 type Msg =
 | DoQuery
 | UpdateQuery of string
+| UpdateRestriction of string
 
-let init() : Model = {Query=""; Results= new ResizeArray<SearchResult>() }
+let init() : Model = {Query=""; Restriction=""; Results= new ResizeArray<SearchResult>() }
 
 
 // UPDATE
@@ -120,6 +124,13 @@ let update (msg:Msg) (model:Model) =
             |> Seq.choose( fun (k,v) -> if normalized.IndexOf(k) <> -1 then Some(k,v) else None )
             |> Seq.sortByDescending snd
             |> Seq.truncate 30 //TODO: arbitrary return N most freq
+
+        //Build a set of our review name restrictions
+        let restrictionSet =
+            model.Restriction.Split([|'\n'|], System.StringSplitOptions.RemoveEmptyEntries)
+            |> Seq.map( fun name -> name.Trim() )
+            |> Seq.filter( fun s -> s.Length > 0)
+            |> Set.ofSeq
  
         let results =
             keyMatches
@@ -151,6 +162,12 @@ let update (msg:Msg) (model:Model) =
             )
             |> Seq.distinctBy fst //distinct using our manual hash
             |> Seq.map snd        //pop off the manual hash
+            // Filter using our restricted names; if we have none, then let everything through
+            |> Seq.filter( fun searchResult -> 
+                if restrictionSet.Count > 0 then
+                    restrictionSet.Contains( searchResult.Author ) 
+                else
+                    true)
             //at this level we group on keyword and sort matches descending by score
             // |> Seq.groupBy(fun searchResult -> searchResult.Keyphrase )
             // |> Seq.map( fun (k,v) -> 
@@ -164,6 +181,8 @@ let update (msg:Msg) (model:Model) =
         {model with Results=results}
     | UpdateQuery(query) ->
         { model with Query = query}
+    | UpdateRestriction(restriction) ->
+        { model with Restriction = restriction}
 
 // VIEW (rendered with React)
 
@@ -202,6 +221,18 @@ let view model dispatch =
                     Height "600px"
                 ] 
                 OnInput (fun ev ->  UpdateQuery (!!ev.target?value) |> dispatch )
+            ] []
+            //
+            p [] [ str "Enter reviewer names to restrict search, e.g. PC or EB. Leave blank to get all reviewers." ]
+            textarea [
+                ClassName "new-restriction"
+                DefaultValue model.Restriction
+                Size 100000.0
+                Style [
+                    Width "100%"
+                    Height "100px"
+                ] 
+                OnInput (fun ev ->  UpdateRestriction (!!ev.target?value) |> dispatch )
             ] []
         ]
                
