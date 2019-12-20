@@ -202,5 +202,5 @@ project.lock.json
 # Exclude checkpoints
 *.log
 .ipynb_checkpoints/
-
-
+.ionide/
+DataModel/new-pdfs/

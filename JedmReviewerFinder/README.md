@@ -23,14 +23,16 @@ The project can be used by editors compatible with the new .fsproj format, like 
 
 ## Building and running the app
 
-* Install JS dependencies: `yarn`
+*Removing yarn b/c of lack of `yarn audit fix`. See previous commit for `yarn` build instructions*
+
+* Install JS dependencies: npm install 
 * Change dir with `cd src`
-* Start Fable daemon and [Webpack](https://webpack.js.org/) dev server: `dotnet fable yarn-start`
+* Start Fable daemon and [Webpack](https://webpack.js.org/) dev server: `dotnet fable npm-start`
 * In your browser, open: http://0.0.0.0:8080/
 
-If you are using VS Code + [Ionide](http://ionide.io/), you can also use the key combination: Ctrl+Shift+B (Cmd+Shift+B on macOS) instead of typing the `dotnet fable yarn-start` command. This also has the advantage that Fable-specific errors will be highlighted in the editor along with other F# errors.
+If you are using VS Code + [Ionide](http://ionide.io/), you can also use the key combination: Ctrl+Shift+B (Cmd+Shift+B on macOS) instead of typing the `dotnet fable npm-start` command. This also has the advantage that Fable-specific errors will be highlighted in the editor along with other F# errors.
 
-Any modification you do to the F# code will be reflected in the web page after saving. When you want to output the JS code to disk, run `dotnet fable yarn-build` and you'll get a minified JS bundle in the `public` folder.
+Any modification you do to the F# code will be reflected in the web page after saving. When you want to output the JS code to disk, run `dotnet fable npm-build` and you'll get a minified JS bundle in the `public` folder.
 
  To publish the web pages into gh-pages branch, run `npm run publish`.
 
