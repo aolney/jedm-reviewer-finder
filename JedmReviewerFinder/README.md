@@ -13,7 +13,7 @@ You can find more templates by searching `Fable.Template` packages in [Nuget](ht
 
 * [dotnet SDK](https://www.microsoft.com/net/download/core) 2.0.0 or higher
 * [node.js](https://nodejs.org) 4.8.2 or higher
-* npm5: JS package manager
+* npm: JS package manager
 
 Although is not a Fable requirement, on macOS and Linux you'll need [Mono](http://www.mono-project.com/) for other F# tooling like Paket or editor support.
 

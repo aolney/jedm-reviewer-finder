@@ -1,6 +1,6 @@
 {
   "name": "JedmReviewerFinder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Search for journal submission reviewers for JEDM",
   "scripts": {
     "postinstall": "dotnet restore",

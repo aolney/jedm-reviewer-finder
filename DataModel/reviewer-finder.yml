@@ -1,0 +1,44 @@
+name: reviewer-finder
+channels:
+  - conda-forge
+dependencies:
+  - jupyterlab-sos
+  - nltk
+  - catalogue
+  - jupyter_nbextensions_configurator
+  - sos-notebook
+  - sos-bash
+  - threadpoolctl
+  - thinc
+  - wasabi
+  - smart_open
+  - cymem
+  - pathy
+  - scipy
+  - srsly
+  - pydantic
+  - blis
+  - pip
+  - preshed
+  - pyarrow
+  - python=3.7
+  - unidecode
+  - jupyter_highlight_selected_word
+  - jupyter_latex_envs
+  - scikit-learn=0.21
+  - future
+  - tabulate
+  - murmurhash
+  - jupyter_contrib_nbextensions
+  - pandas
+  - jupyter_contrib_core
+  - spacy
+  - numpy
+  - typer
+  - jinja2
+  - typing_extensions
+  - lxml
+  - pip:
+    - sos-python
+    - sos-r
+    - git+https://github.com/boudinfl/pke.git@5d34e26bab97ee5fc974fc286dd505545edde6f5
